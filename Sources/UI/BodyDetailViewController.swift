@@ -46,9 +46,7 @@ class BodyDetailViewController: WHBaseViewController {
         let hud = showLoader(view: view)
         RequestModelBeautifier.body(data) { [weak self] (stringData) in
             DispatchQueue.main.sync {
-                let data = self!.data!
-                let dict = try! JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                self?.textView.text = "\(dict as AnyObject)"
+                self?.textView.text = stringData
                 self?.hideLoader(loaderView: hud)
             }
         }

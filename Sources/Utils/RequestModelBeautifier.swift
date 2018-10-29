@@ -42,11 +42,14 @@ class RequestModelBeautifier: NSObject {
     }
     
     static func body(_ body: Data?, splitLength: Int? = nil) -> String{
-        guard body != nil else {
+        guard let theBody = body else {
             return "-"
         }
         
         if let data = splitLength != nil ? String(data: body!, encoding: .utf8)?.characters(n: splitLength!) : String(data: body!, encoding: .utf8){
+            if let json = try? JSONSerialization.jsonObject(with: theBody, options: .allowFragments) {
+                return "\(json as AnyObject)"
+            }
             return data
         }
         
